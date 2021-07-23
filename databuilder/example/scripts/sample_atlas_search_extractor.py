@@ -34,7 +34,6 @@ es = Elasticsearch([
 
 elasticsearch_client = es
 elasticsearch_new_index_key = f'{entity_type.lower()}-' + str(uuid.uuid4())
-elasticsearch_new_index_key_type = '_doc'
 elasticsearch_index_alias = f'{entity_type.lower()}_search_index'
 
 job_config = ConfigFactory.from_dict({
@@ -70,8 +69,6 @@ job_config = ConfigFactory.from_dict({
         elasticsearch_client,
     'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_NEW_INDEX_CONFIG_KEY):
         elasticsearch_new_index_key,
-    'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_DOC_TYPE_CONFIG_KEY):
-        elasticsearch_new_index_key_type,
     'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_ALIAS_CONFIG_KEY):
         elasticsearch_index_alias
 })

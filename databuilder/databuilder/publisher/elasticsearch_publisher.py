@@ -27,7 +27,6 @@ class ElasticsearchPublisher(Publisher):
     FILE_MODE_CONFIG_KEY = 'mode'
 
     ELASTICSEARCH_CLIENT_CONFIG_KEY = 'client'
-    ELASTICSEARCH_DOC_TYPE_CONFIG_KEY = 'doc_type'
     ELASTICSEARCH_NEW_INDEX_CONFIG_KEY = 'new_index'
     ELASTICSEARCH_ALIAS_CONFIG_KEY = 'alias'
     ELASTICSEARCH_MAPPING_CONFIG_KEY = 'mapping'
@@ -46,7 +45,6 @@ class ElasticsearchPublisher(Publisher):
         self.file_path = self.conf.get_string(ElasticsearchPublisher.FILE_PATH_CONFIG_KEY)
         self.file_mode = self.conf.get_string(ElasticsearchPublisher.FILE_MODE_CONFIG_KEY, 'w')
 
-        self.elasticsearch_type = self.conf.get_string(ElasticsearchPublisher.ELASTICSEARCH_DOC_TYPE_CONFIG_KEY)
         self.elasticsearch_client = self.conf.get(ElasticsearchPublisher.ELASTICSEARCH_CLIENT_CONFIG_KEY)
         self.elasticsearch_new_index = self.conf.get(ElasticsearchPublisher.ELASTICSEARCH_NEW_INDEX_CONFIG_KEY)
         self.elasticsearch_alias = self.conf.get(ElasticsearchPublisher.ELASTICSEARCH_ALIAS_CONFIG_KEY)
@@ -92,8 +90,7 @@ class ElasticsearchPublisher(Publisher):
         # create new index with mapping
         self.elasticsearch_client.indices.create(index=self.elasticsearch_new_index, body=self.elasticsearch_mapping)
         for action in actions:
-            index_row = dict(index=dict(_index=self.elasticsearch_new_index,
-                                        _type=self.elasticsearch_type))
+            index_row = dict(index=dict(_index=self.elasticsearch_new_index))
             bulk_actions.append(index_row)
             bulk_actions.append(action)
             cnt += 1

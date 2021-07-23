@@ -22,14 +22,12 @@ class TestElasticsearchPublisher(unittest.TestCase):
         self.mock_es_client = MagicMock()
         self.test_es_new_index = 'test_new_index'
         self.test_es_alias = 'test_index_alias'
-        self.test_doc_type = 'test_doc_type'
 
         config_dict = {'publisher.elasticsearch.file_path': self.test_file_path,
                        'publisher.elasticsearch.mode': self.test_file_mode,
                        'publisher.elasticsearch.client': self.mock_es_client,
                        'publisher.elasticsearch.new_index': self.test_es_new_index,
-                       'publisher.elasticsearch.alias': self.test_es_alias,
-                       'publisher.elasticsearch.doc_type': self.test_doc_type}
+                       'publisher.elasticsearch.alias': self.test_es_alias}
 
         self.conf = ConfigFactory.from_dict(config_dict)
 
@@ -73,7 +71,7 @@ class TestElasticsearchPublisher(unittest.TestCase):
 
             # bulk endpoint called once
             self.mock_es_client.bulk.assert_called_once_with(
-                [{'index': {'_type': self.test_doc_type, '_index': self.test_es_new_index}},
+                [{'index': {'_index': self.test_es_new_index}},
                  {'KEY_DOESNOT_MATTER': 'NO_VALUE', 'KEY_DOESNOT_MATTER2': 'NO_VALUE2'}]
             )
 
@@ -106,7 +104,7 @@ class TestElasticsearchPublisher(unittest.TestCase):
 
             # bulk endpoint called once
             self.mock_es_client.bulk.assert_called_once_with(
-                [{'index': {'_type': self.test_doc_type, '_index': self.test_es_new_index}},
+                [{'index': {'_index': self.test_es_new_index}},
                  {'KEY_DOESNOT_MATTER': 'NO_VALUE', 'KEY_DOESNOT_MATTER2': 'NO_VALUE2'}]
             )
 

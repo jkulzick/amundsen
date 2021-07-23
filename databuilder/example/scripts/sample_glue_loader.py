@@ -92,8 +92,6 @@ def create_es_publisher_job():
             elasticsearch_client,
         f'publisher.elasticsearch.{ElasticsearchPublisher.ELASTICSEARCH_NEW_INDEX_CONFIG_KEY}':
             elasticsearch_new_index_key,
-        f'publisher.elasticsearch.{ElasticsearchPublisher.ELASTICSEARCH_DOC_TYPE_CONFIG_KEY}':
-            elasticsearch_new_index_key_type,
         f'publisher.elasticsearch.{ElasticsearchPublisher.ELASTICSEARCH_ALIAS_CONFIG_KEY}':
             elasticsearch_index_alias
     })

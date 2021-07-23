@@ -12,7 +12,7 @@ For information about Amundsen and our other services, visit the [main repositor
 
 ## Requirements
 - Python >= 3.6.x
-- elasticsearch 6.x (currently it doesn't support 7.x)
+- elasticsearch >= 6.x
 
 ## Doc
 - https://www.amundsen.io/amundsen/
@@ -518,7 +518,6 @@ es = Elasticsearch([
 
 elasticsearch_client = es
 elasticsearch_new_index_key = f'{entity_type.lower()}-' + str(uuid.uuid4())
-elasticsearch_new_index_key_type = '_doc'
 elasticsearch_index_alias = f'{entity_type.lower()}_search_index'
 
 job_config = ConfigFactory.from_dict({
@@ -554,8 +553,6 @@ job_config = ConfigFactory.from_dict({
         elasticsearch_client,
     'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_NEW_INDEX_CONFIG_KEY):
         elasticsearch_new_index_key,
-    'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_DOC_TYPE_CONFIG_KEY):
-        elasticsearch_new_index_key_type,
     'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_ALIAS_CONFIG_KEY):
         elasticsearch_index_alias
 })
@@ -1660,7 +1657,6 @@ job_config = ConfigFactory.from_dict({
     'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.FILE_MODE_CONFIG_KEY): 'r',
     'publisher.elasticsearch{}'.format(ElasticsearchPublisher.ELASTICSEARCH_CLIENT_CONFIG_KEY): elasticsearch_client,
     'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_NEW_INDEX_CONFIG_KEY): elasticsearch_new_index,
-    'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_DOC_TYPE_CONFIG_KEY): elasticsearch_doc_type,
     'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_ALIAS_CONFIG_KEY): elasticsearch_index_alias,
 })
 
