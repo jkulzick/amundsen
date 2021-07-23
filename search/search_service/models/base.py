@@ -19,9 +19,3 @@ class Base(metaclass=ABCMeta):
     def get_attrs(cls) -> Set:
         # return a set of attributes for the class
         pass
-
-    @staticmethod
-    @abstractmethod
-    def get_type() -> str:
-        # return a type string for the class
-        pass

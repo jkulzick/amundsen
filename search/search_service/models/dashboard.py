@@ -37,10 +37,6 @@ class Dashboard(Base,
             'last_successful_run_timestamp'
         }
 
-    @staticmethod
-    def get_type() -> str:
-        return 'dashboard'
-
 
 class DashboardSchema(DashboardSummarySchema):
     class Meta:

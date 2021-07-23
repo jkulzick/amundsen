@@ -542,7 +542,6 @@ class TestElasticsearchProxy(unittest.TestCase):
             {
                 'index': {
                     '_index': new_index_name,
-                    '_type': 'table',
                     '_id': 'snowflake://blue.test_schema/bank_accounts'
                 }
             },
@@ -567,7 +566,6 @@ class TestElasticsearchProxy(unittest.TestCase):
             {
                 'index': {
                     '_index': new_index_name,
-                    '_type': 'table',
                     '_id': 'snowflake://blue.test_schema/bitcoin_wallets'
                 }
             },
@@ -621,7 +619,6 @@ class TestElasticsearchProxy(unittest.TestCase):
             {
                 'update': {
                     '_index': new_index_name,
-                    '_type': 'table',
                     '_id': table_key
                 }
             },
@@ -660,8 +657,8 @@ class TestElasticsearchProxy(unittest.TestCase):
         data = ['id1', 'id2']
 
         expected_data = [
-            {'delete': {'_index': new_index_name, '_id': 'id1', '_type': 'table'}},
-            {'delete': {'_index': new_index_name, '_id': 'id2', '_type': 'table'}}
+            {'delete': {'_index': new_index_name, '_id': 'id1'}},
+            {'delete': {'_index': new_index_name, '_id': 'id2'}}
         ]
         result = self.es_proxy.delete_document(data=data, index=expected_alias)
 
@@ -678,8 +675,8 @@ class TestElasticsearchProxy(unittest.TestCase):
         data = ['id1', 'id2']
 
         expected_data = [
-            {'delete': {'_index': new_index_name, '_id': 'id1', '_type': 'user'}},
-            {'delete': {'_index': new_index_name, '_id': 'id2', '_type': 'user'}}
+            {'delete': {'_index': new_index_name, '_id': 'id1'}},
+            {'delete': {'_index': new_index_name, '_id': 'id2'}}
         ]
         result = self.es_proxy.delete_document(data=data, index=expected_alias)
 
@@ -696,8 +693,8 @@ class TestElasticsearchProxy(unittest.TestCase):
         data = ['id1', 'id2']
 
         expected_data = [
-            {'delete': {'_index': new_index_name, '_id': 'id1', '_type': 'feature'}},
-            {'delete': {'_index': new_index_name, '_id': 'id2', '_type': 'feature'}}
+            {'delete': {'_index': new_index_name, '_id': 'id1'}},
+            {'delete': {'_index': new_index_name, '_id': 'id2'}}
         ]
         result = self.es_proxy.delete_document(data=data, index=expected_alias)
 
@@ -759,10 +756,12 @@ class TestElasticsearchProxy(unittest.TestCase):
     def test_fetch_feature_search_results(self, mock_search: MagicMock) -> None:
         query_term = 'panda'
         self.es_proxy.fetch_feature_search_results(query_term=query_term)
+        s = Search(using=self.es_proxy.elasticsearch, index=FEATURE_INDEX)
+        s = s.extra(track_total_hits=True)
 
         mock_search.assert_called_with(
             page_index=0,
-            client=Search(using=self.es_proxy.elasticsearch, index=FEATURE_INDEX),
+            client=s,
             query_name=self.es_proxy.get_feature_search_query(query_term),
             model=Feature,
             search_result_model=SearchFeatureResult,

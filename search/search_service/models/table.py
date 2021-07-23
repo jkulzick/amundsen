@@ -72,10 +72,6 @@ class Table(Base):
             'schema_description'
         }
 
-    @staticmethod
-    def get_type() -> str:
-        return 'table'
-
 
 class TableSchema(AttrsSchema):
     class Meta:

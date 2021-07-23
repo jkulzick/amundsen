@@ -18,7 +18,7 @@ For information about Amundsen and our other services, refer to this [README.md]
 ## Requirements
 
 - Python >= 3.6
-- elasticsearch 6.x (currently it doesn't support 7.x)
+- elasticsearch >= 6.x
 
 ## Doc
 - https://www.amundsen.io/amundsen

@@ -62,10 +62,6 @@ class Feature(Base):
             'last_updated_timestamp',
         }
 
-    @staticmethod
-    def get_type() -> str:
-        return 'feature'
-
 
 class FeatureSchema(AttrsSchema):
     class Meta:

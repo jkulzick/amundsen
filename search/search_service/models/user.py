@@ -43,10 +43,6 @@ class User(Base, CommonUser):
             'role_name',
         }
 
-    @staticmethod
-    def get_type() -> str:
-        return 'user'
-
 
 class UserSchema(AttrsSchema):
     class Meta:
