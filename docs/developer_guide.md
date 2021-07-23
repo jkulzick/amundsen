@@ -243,8 +243,6 @@ First fill this two environment variables: `NEO4J_ENDPOINT` , `CREDENTIALS_NEO4J
             elasticsearch_client,  
       'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_NEW_INDEX_CONFIG_KEY):  
             elasticsearch_new_index,  
-      'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_DOC_TYPE_CONFIG_KEY):  
-            elasticsearch_doc_type,  
       'publisher.elasticsearch.{}'.format(ElasticsearchPublisher.ELASTICSEARCH_ALIAS_CONFIG_KEY):  
             elasticsearch_index_alias,  
     })  
